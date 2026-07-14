@@ -30,6 +30,7 @@ class Client
                 'Content-Type' => 'application/json',
                 'X-API-Key' => $apiKey,
             ],
+            'http_errors' => false,
         ]);
     }
 
