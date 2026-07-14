@@ -19,7 +19,7 @@ class ClientTest extends TestCase
     {
         $mock = new MockHandler([new Response($status, $headers, json_encode($body))]);
         $handler = HandlerStack::create($mock);
-        $guzzle = new GuzzleClient(['handler' => $handler]);
+        $guzzle = new GuzzleClient(['handler' => $handler, 'http_errors' => false]);
 
         $client = new class('test-key', 'http://localhost:8084') extends Client {
             public function setGuzzle(GuzzleClient $guzzle): void

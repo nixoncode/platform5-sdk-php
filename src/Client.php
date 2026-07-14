@@ -49,7 +49,11 @@ class Client
         try {
             $response = $this->http->request($method, ltrim($path, '/'), $options);
         } catch (GuzzleException $e) {
-            throw new Platform5Exception(0, 'Request failed: ' . $e->getMessage(), null, null);
+            if ($e->hasResponse()) {
+                $response = $e->getResponse();
+            } else {
+                throw new Platform5Exception(0, 'Request failed: ' . $e->getMessage(), null, null);
+            }
         }
 
         $requestId = $response->getHeaderLine('X-Request-ID') ?: null;
